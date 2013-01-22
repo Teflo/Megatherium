@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jScrollPane1" alignment="0" pref="1005" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jScrollPane1" alignment="0" pref="653" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="# LanguageServer: Dateiverwaltung verbessern&#xa; - Applikationsabh&#xe4;ngige Sprachdateien, d.h. eigene Sprachdatei f&#xfc;r LAK-Client und eigene f&#xfc;r Megatherium-Client&#xa;Beispiele:&#xa;&#xa;LanguageServer.getInstance().add(&quot;de&quot;, &quot;megatherium.de.lang&quot;);&#xa;LanguageServer.getInstance().add(&quot;en&quot;, &quot;megatherium.en.lang&quot;);&#xa;LanguageServer.getInstance().add(&quot;de&quot;, &quot;lordsandknights.de.lang&quot;);&#xa;LanguageServer.getInstance().add(&quot;en&quot;, &quot;lordsandknights.en.lang&quot;);&#xa;&#xa;&#xa;&#xa;&#xa;# EventManager: Namespaces entfernen&#xa; - Namespaces sollen durch punktgetrennte Namespaces im Namen ersetzt werden&#xa; - Man muss auf unter-Namespaces h&#xf6;ren k&#xf6;nnen, bspw: Listener h&#xf6;rt auf &quot;megatherium.request.*&quot; und wird &#xfc;ber alle Anfragen vom Megatheriumprojekt benachrichtigt&#xa; - Beispiele f&#xfc;r Namespaces&#xa;  - lordsandknights.* -&gt; Alle (unter-) Namespaces des LordsAndKnights-Projektes&#xa;   - lordsandknights.request.*&#xa;   - lordsandknights.ui.*&#xa;  - megatherium.* -&gt; Alle (unter-)Namespaces des Megatherium-Kernprojektes&#xa;   - megatherium.request.*&#xa;&#x9;- megatherium.request.user.create&#xa;&#x9;- megatherium.request.user.login&#xa;   - megatherium.ui.*&#xa;&#xa;{&#xa;&#x9;&quot;megatherium.request.*&quot;: [#obj, #obj, ...],&#xa;&#x9;&quot;megatherium.request.&#xa;}&#xa;&#xa;{&#xa;&#x9;eventListeners: [],&#xa;&#x9;categories: {&#xa;&#x9;&#x9;&quot;megatherium&quot;: {&#xa;&#x9;&#x9;&#x9;eventListeners: [],&#xa;&#x9;&#x9;&#x9;categories: {&#xa;&#x9;&#x9;&#x9;&#x9;&quot;request&quot;: {&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;eventListeners: [],&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;categories: {&#xa;&#xa;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xa;&#x9;&#x9;&#x9;&#x9;}&#xa;&#x9;&#x9;&#x9;}&#xa;&#x9;&#x9;}&#xa;&#x9;}&#xa;}&#xa;&#xa;$categories[&quot;megatherium&quot;] = {&#xa;&#x9;&quot;eventListeners&quot;: {&#xa;&#xa;&#x9;},&#xa;&#x9;categories:&#xa;};&#xa;&#xa;&#xa;# Controller: References&#xa;References einbauen: Automatische Verlinkung von Events zu Methoden (statt einzelner Initialisierung &#xfc;ber EventManager)&#xa;&#xa;&quot;showAttackCreate&quot; =&gt; &quot;showAttackCreate&quot;&#xa;new MapBuilder&lt;String, String&gt;().set(&quot;showAttackCreate&quot;, &quot;showAttackCreate&quot;).set(&quot;mymeme&quot;, &quot;mymeme&quot;);&#xa;return new String[][] {&#xa;&#x9;{&quot;showAttackCreate&quot;, &quot;showAttackCreate&quot;},&#xa;&#x9;{&quot;mymeme&quot;, &quot;mymeme&quot;},&#xa;&#x9;{&quot;myCustomEventMthrfckr&quot;, &quot;myCustomOtherMethodMthrfckr&quot;}&#xa;};"/>
+            <Property name="autoscrolls" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="jTextArea1CaretUpdate"/>
+            <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jTextArea1MouseDragged"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
