@@ -1,0 +1,110 @@
+22:21:25 Angriff auf Freie Burg #56031 durchgeführt
+22:21:39 Angriff auf Freie Burg #48891 übersprungen
+22:21:40 Angriff auf Freie Burg #47369 durchgeführt
+22:21:43 Angriff auf Freie Burg #46619 durchgeführt
+22:21:44 Angriff auf Freie Burg #47373 übersprungen
+22:21:45 Angriff auf Freie Burg #48127 durchgeführt
+22:21:45 Angriff auf Freie Burg #48129 übersprungen
+22:21:47 Angriff auf Freie Burg #46623 durchgeführt
+22:22:6 Angriff auf Freie Burg #31619 durchgeführt
+22:22:7 Angriff auf Freie Burg #32861 durchgeführt
+22:22:10 Angriff auf Freie Burg #32239 durchgeführt
+22:22:13 Angriff auf Freie Burg #30398 durchgeführt
+22:22:16 Angriff auf Freie Burg #31007 durchgeführt
+22:22:20 Angriff auf Freie Burg #31619 durchgeführt
+22:22:24 Angriff auf Freie Burg #32861 durchgeführt
+22:22:28 Angriff auf Freie Burg #32239 durchgeführt
+22:22:34 Angriff auf Freie Burg #30398 durchgeführt
+22:22:36 Angriff auf Freie Burg #31007 durchgeführt
+22:22:38 Angriff auf Freie Burg #31619 durchgeführt
+22:22:42 Angriff auf Freie Burg #32861 durchgeführt
+22:22:45 Angriff auf Freie Burg #32239 durchgeführt
+22:22:48 Angriff auf Freie Burg #30398 durchgeführt
+22:22:54 Angriff auf Freie Burg #31007 durchgeführt
+22:22:58 Angriff auf Freie Burg #31619 durchgeführt
+22:22:59 Angriff auf Freie Burg #32861 übersprungen
+22:23:0 Angriff auf Freie Burg #32239 durchgeführt
+22:23:3 Angriff auf Freie Burg #30398 durchgeführt
+22:23:6 Angriff auf Freie Burg #31007 durchgeführt
+22:23:8 Angriff auf Freie Burg #31619 durchgeführt
+22:23:11 Angriff auf Freie Burg #32861 übersprungen
+22:23:11 Angriff auf Freie Burg #32239 übersprungen
+22:23:12 Angriff auf Freie Burg #30398 durchgeführt
+22:23:15 Angriff auf Freie Burg #31007 durchgeführt
+22:23:17 Angriff auf Freie Burg #31619 durchgeführt
+22:23:21 Angriff auf Freie Burg #32861 durchgeführt
+22:23:24 Angriff auf Freie Burg #32239 durchgeführt
+22:23:27 Angriff auf Freie Burg #30398 durchgeführt
+22:23:29 Angriff auf Freie Burg #31007 durchgeführt
+22:23:30 Angriff auf Freie Burg #31619 übersprungen
+22:23:30 Angriff auf Freie Burg #32861 übersprungen
+22:23:31 Angriff auf Freie Burg #32239 durchgeführt
+22:23:34 Angriff auf Freie Burg #30398 durchgeführt
+22:23:35 Angriff auf Freie Burg #31007 durchgeführt
+22:23:40 Angriff auf Freie Burg #31619 durchgeführt
+22:23:42 Angriff auf Freie Burg #32861 durchgeführt
+22:23:45 Angriff auf Freie Burg #32239 durchgeführt
+22:23:50 Angriff auf Freie Burg #30398 durchgeführt
+22:23:53 Angriff auf Freie Burg #31007 durchgeführt
+22:23:57 Angriff auf Freie Burg #31619 durchgeführt
+22:24:1 Angriff auf Freie Burg #32861 durchgeführt
+22:24:3 Angriff auf Freie Burg #32239 übersprungen
+22:24:4 Angriff auf Freie Burg #30398 durchgeführt
+22:24:6 Angriff auf Freie Burg #31007 durchgeführt
+22:24:9 Angriff auf Freie Burg #31619 durchgeführt
+22:24:9 Angriff auf Freie Burg #32861 übersprungen
+22:24:11 Angriff auf Freie Burg #32239 durchgeführt
+22:24:14 Angriff auf Freie Burg #30398 durchgeführt
+22:24:17 Angriff auf Freie Burg #31007 durchgeführt
+22:24:20 Angriff auf Freie Burg #31619 übersprungen
+22:24:20 Angriff auf Freie Burg #32861 durchgeführt
+22:24:21 1⃣☣⚔ 4 vier ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:24:21 1⃣☣⚔ 4 vier ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:24:21 1⃣☣⚔ 4 vier ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:24:21 1⃣☣⚔ 2 zwei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:24:21 1⃣☣⚔ 2 zwei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:24:21 1⃣☣⚔ 2 zwei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:24:21 1⃣☣⚔ 2 zwei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:24:21 1⃣☣⚔ 2 zwei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:18 2⃣☣⚔ 8 acht ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:48 1⃣☣⚔ 5 fünf ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:48 1⃣☣⚔ 5 fünf ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:48 1⃣☣⚔ 5 fünf ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:48 1⃣☣⚔ 5 fünf ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:48 1⃣☣⚔ 5 fünf ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:52 2⃣☣⚔ 7 sieben ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:59 1⃣☣⚔ 3 drei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:59 1⃣☣⚔ 3 drei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:59 1⃣☣⚔ 3 drei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:59 1⃣☣⚔ 3 drei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:59 1⃣☣⚔ 3 drei ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
+22:21:26 2⃣☣⚔ 6 sechs ⚔☣ besitzt nicht genügend Einheiten für den Angriff.
