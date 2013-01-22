@@ -1,0 +1,61 @@
+[n] alarm.data.alarm.create(String title, int time)
+[n] alarm.ui.alarm.create.cancel
+[n] alarm.ui.alarm.create.show
+
+[n] encyclopedia.data.article.search(String title) -> In der Datenbank wird nach Artikeln gesucht
+[n] encyclopedia.ui.article.show(String title) -> Zeigt den Artikel an
+[n] encyclopedia.ui.settings.show -> Zeigt das Panel für Einstellungen an
+[n] encyclopedia.ui.search(String... titles) -> Sucht nach Artikeln in Encyklopädien
+
+[n] lordsandknights.data.attack.create(int accountID, int startHabitatID, int targetHabitatID, int time, Map<String, String> resources, Map<String, String> units) -> Erstellt einen neuen Angriff
+[t] lordsandknights.request.user.login(HttpRequest)
+[t] lordsandknights.request.map(HttpRequest)
+[t] lordsandknights.request.politicalTile.list(HttpRequest)
+[t] lordsandknights.request.session.update(HttpRequest)
+[t] lordsandknights.request.unit.send(HttpRequest)
+[t] lordsandknights.request.world.change(HttpRequest)
+[t] lordsandknights.request.world.list(HttpRequest)
+[n] lordsandknights.ui.attack.create.show -> Zeigt die Angriff-Erstellen-Maske an
+[n] lordsandknights.ui.attack.shedule.show -> Zeigt die AttackShedule-Maske an
+[n] lordsandknights.ui.resource.selection.cancel -> Bricht die Rohstoffauswahl ab
+[n] lordsandknights.ui.resource.selection.save(Map<String, String> amounts) -> Sagt Bescheid, dass Rohstoffe ausgewählt wurden
+[n] lordsandknights.ui.resource.selection.show -> Zeigt die Rohstoffauswahl an
+[n] lordsandknights.ui.unit.selection.cancel -> Wird aufgerufen, nachdem bei der Einheitenauswahl auf "Abbrechen" gedrückt wurde
+[n] lordsandknights.ui.unit.selection.save(Map<String, String> amounts) -> Sagt Bescheid, dass Einheiten ausgewählt wurden
+[n] lordsandknights.ui.unit.selection.show(Habitat) -> Zeigt die Einheitsauswahl an
+
+[n] megatherium.data.account.create(Platform, String alias, ILoginInformation) -> Soll ein Konto mit dem Benutzer verknüpfen (einen Account erstellen)
+[n] megatherium.data.feedback.create(String text) -> Soll ein Feedback erstellen
+[n] megatherium.data.user.create(String name, String email, String password) -> Soll einen neuen Nutzer erstellen
+[n] megatherium.data.user.login(String login, String password) -> Soll einen Nutzer anmelden/dies versuchen
+[n] megatherium.error.request.unknownHost(String host) -> Wird ausgeführt, wenn ein Server nicht verfügbar ist
+[t] megatherium.request.account.create(HttpRequest)
+[t] megatherium.request.account.delete(HttpRequest)
+[t] megatherium.request.account.list(HttpRequest)
+[t] megatherium.request.account.update(HttpRequest)
+[t] megatherium.request.execute(HttpRequest) -> Wird vor und nach der Ausführung einer Anfrage in HttpRequest aufgerufen
+[t] megatherium.request.feedback.create(HttpRequest)
+[t] megatherium.request.platform.list(HttpRequest)
+[t] megatherium.request.user.create(HttpRequest)
+[t] megatherium.request.user.login(HttpRequest)
+[n] megatherium.ui.account.create.show -> Soll die Maske zum Account-erstellen anzeigen
+[n] megatherium.ui.account.list.show -> Soll die Account-Liste anzeigen
+[n] megatherium.ui.account.login.information.save(LoginInformation) -> Soll die LoginInformation an die Daten übergeben
+[n] megatherium.ui.account.login.information.show(Platform) -> Soll den Benutzer nach den Anmeldeinformationen zu der Plattform fragen
+[n] megatherium.ui.feedback.create.cancel
+[n] megatherium.ui.feedback.create.show -> Feedback-Erstellen-Maske soll angezeigt werden
+[n] megatherium.ui.user.create.show -> Soll die Registrieren-Maske anzeigen
+[n] megatherium.ui.user.login.show -> Soll die Anmelde-Maske anzeigen
+
+[n] storage.drive.authorization.fail(String url) -> Gibt an, dass die Anmeldung zum GDrive-Service fehlgeschlagen ist und übergibt eine URL, mit dessen Hilfe eine erneute Authentifikation möglich ist
+
+[n] textconnect.data.connection.create(String label, Selection selection1, Selection selection2, String comment) -> Soll eine neue Text-Verknüpfung erstellen
+[n] textconnect.data.text.create(String title, String text, String comment) -> Soll einen neuen Text erstellen
+[n] textconnect.ui.text.connect.show(Text[] texts) -> Öffnet die Maske zum Verbinden von mehreren Texten
+[n] textconnect.ui.text.connection.show(Text[] texts) -> Öffnet die Maske, um Verbindungen zwischen einem oder 2 Texten anzusehen
+[n] textconnect.ui.text.create.cancel -> Bricht die Text-Erstellung ab
+[n] textconnect.ui.text.create.show -> Soll die Text-Erstellen-Maske anzeigen
+
+[n] wordpuzzle.ui.game.start -> Soll ein neues Spiel starten
+[n] wordpuzzle.ui.home.show -> Zeigt das HomePanel an
+[n] wordpuzzle.ui.settings.show -> Soll die Einstellungen zur Bearbeitung anzeigen
