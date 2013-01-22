@@ -23,8 +23,9 @@ public class HttpRequest {
 	private Map<String, String> parameters = new HashMap<String, String>();
 	private String url;
 	private String method = "get";
-	private String eventName = "execute";
+	private String eventName = "megatherium.request.execute";
 	private String body = "";
+	public String getEventName() {return this.eventName;}
 	
 	/**
 	 * Initializes the request with the default event name "execute" (resulting event name: "megatherium.request.execute")

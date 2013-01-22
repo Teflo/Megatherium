@@ -127,7 +127,6 @@ public abstract class Controller implements IUniversalListener {
 		
 		// initialize frame
 		this.initializeFrame();
-		System.out.println(this.frame);
 		
 		// initialize event listening
 		this.initializeEvents();

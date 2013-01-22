@@ -5,6 +5,8 @@
 package megatherium.ui;
 
 import megatherium.event.EventManager;
+import megatherium.language.LanguageServer;
+import megatherium.request.HttpRequest;
 
 /**
  *
@@ -17,6 +19,8 @@ public class HeaderPanel extends javax.swing.JPanel {
 	 */
 	public HeaderPanel() {
 		initComponents();
+		
+		EventManager.getInstance().addListener("megatherium.request", this, "setStatus");
 	}
 	
 	/**
@@ -26,6 +30,15 @@ public class HeaderPanel extends javax.swing.JPanel {
 	 */
 	public void setStatus(String status) {
 		this.status.setText(status);
+	}
+	
+	/**
+	 * Sets the status for the request.
+	 * 
+	 * @param request the http request
+	 */
+	public void setStatus(String status, String position) {
+		this.setStatus(LanguageServer.getInstance().get(new StringBuilder().append(status).append(".").append(position).toString()));
 	}
 
 	/**
