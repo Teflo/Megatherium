@@ -22,7 +22,7 @@ import megatherium.util.ReportUtil;
  */
 public class MegatheriumCommunicator implements IAuthenticationCommunicator {
 	private static MegatheriumCommunicator instance;
-	public static final String SERVER_URL = "http://localhost:8084/LordsAndKnights_Server/";
+	public static final String SERVER_URL = "http://spinshare.de:8080/Lords__Knights_Server/";
 	private static final int APPLICATION_ID = 1;
 	private Session session = new Session();
 	

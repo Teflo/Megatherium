@@ -17,7 +17,7 @@ public class Database {
 	private Connection connection;
 	private String databaseName = "patrickthoma";
 	private String username = "root";
-	private String password = "";
+	private String password = "AjXVFh9uNHmLX4hrPugp";
 	private String host = "localhost:3306";
 
 	/**
