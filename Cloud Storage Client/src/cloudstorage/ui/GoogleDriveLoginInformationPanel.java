@@ -5,6 +5,7 @@
 package cloudstorage.ui;
 
 import cloudstorage.communicator.GoogleDriveCommunicator;
+import cloudstorage.communicator.data.CloudStorageLoginInformation;
 import cloudstorage.communicator.data.GoogleDriveLoginInformation;
 import megatherium.application.Application;
 import megatherium.communicator.data.ILoginInformation;
@@ -42,12 +43,19 @@ public class GoogleDriveLoginInformationPanel extends EventPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fileChooser = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         authenticationURL = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         authenticationCode = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+
+        fileChooser.setDialogType(javax.swing.JFileChooser.CUSTOM_DIALOG);
+        fileChooser.setApproveButtonText("Auswählen");
+        fileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         jLabel1.setText("Bitte öffnen Sie den folgenden Link im Browser, um eine sichere Authentifizierung durch zu führen:");
 
@@ -67,6 +75,15 @@ public class GoogleDriveLoginInformationPanel extends EventPanel {
             }
         });
 
+        jLabel3.setText("Lokaler Google-Drive-Ordner:");
+
+        jButton3.setText("Auswählen...");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,18 +92,21 @@ public class GoogleDriveLoginInformationPanel extends EventPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(authenticationURL)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(authenticationCode))
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(authenticationCode)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jButton3)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -102,6 +122,10 @@ public class GoogleDriveLoginInformationPanel extends EventPanel {
                     .addComponent(authenticationCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -113,22 +137,29 @@ public class GoogleDriveLoginInformationPanel extends EventPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (this.authenticationCode.getText().isEmpty()) {
-			Application.getController().showNotification("Sie müssen zunächst einen Authentifizierungs-Code eingeben. Rufen Sie dazu die URL im Browser auf und erlauben Sie unseren Zugriff auf Google Drive.");
+        if (this.authenticationCode.getText().isEmpty() || this.fileChooser.getSelectedFile() == null) {
+			Application.getController().showNotification("Sie müssen zunächst einen Authentifizierungs-Code eingeben und einen Google Drive Ordner auswählen.");
 			return;
 		}
 		
 		// fetch credentials
-		ILoginInformation information = GoogleDriveCommunicator.getInstance().getLoginInformation(this.authenticationCode.getText());
-		EventManager.getInstance().fireEvent("megatherium.ui.account.login.information.save", information);
+		CloudStorageLoginInformation information = GoogleDriveCommunicator.getInstance().getLoginInformation(this.authenticationCode.getText());
+		EventManager.getInstance().fireEvent("megatherium.ui.account.login.information.save", information.setLocalDirectory(fileChooser.getSelectedFile().getAbsolutePath()));
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        fileChooser.showOpenDialog(this);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField authenticationCode;
     private javax.swing.JTextField authenticationURL;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

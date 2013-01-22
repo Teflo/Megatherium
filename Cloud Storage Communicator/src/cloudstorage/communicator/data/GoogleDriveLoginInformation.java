@@ -10,10 +10,10 @@ import megatherium.communicator.data.ILoginInformation;
  *
  * @author SargTeX
  */
-public class GoogleDriveLoginInformation extends ILoginInformation {
+public class GoogleDriveLoginInformation extends CloudStorageLoginInformation {
 	private String accessToken;
 	private String refreshToken;
 	public String getAccessToken() {return this.accessToken;}
 	public String getRefreshToken() {return this.refreshToken;}
-	public GoogleDriveLoginInformation(String accessToken, String refreshToken) {this.accessToken = accessToken; this.refreshToken = refreshToken;}
+	public GoogleDriveLoginInformation(String localDirectory, String accessToken, String refreshToken) {super(localDirectory); this.accessToken = accessToken; this.refreshToken = refreshToken;}
 }

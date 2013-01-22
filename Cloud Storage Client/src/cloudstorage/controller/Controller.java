@@ -53,7 +53,7 @@ public class Controller extends MegatheriumController {
 	
 	/** References **/
 	public void saveAccountLoginInformation(GoogleDriveLoginInformation information) {super.saveAccountLoginInformation(information);}
-	public void saveSettings(String uploadDirectory) {Application.getConfig(Config.class).setUploadDirectory(new cloudstorage.data.File())}
+//	public void saveSettings(String uploadDirectory) {Application.getConfig(Config.class).setUploadDirectory(new cloudstorage.data.File())}
 	public void showLoginInformation(Platform platform) {
 		if (platform.getName().equals("googledrive")) {
 			((GoogleDriveLoginInformationPanel) this.getPanel("googleDriveLoginInformation")).setAuthenticationURL(GoogleDriveCommunicator.getInstance().getAuthorizationURL());

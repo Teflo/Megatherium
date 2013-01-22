@@ -168,8 +168,8 @@ public class GoogleDriveCommunicator extends CloudStorageCommunicator {
 	public GoogleDriveLoginInformation getLoginInformation(String code) {
 		try {
 			GoogleTokenResponse response = flow.newTokenRequest(code).setRedirectUri(data.getRedirectURL()).execute();
-			GoogleCredential credential = new GoogleCredential().setFromTokenResponse(response);
-			return new GoogleDriveLoginInformation(credential.getAccessToken(), credential.getRefreshToken());
+			GoogleCredential credential = new GoogleCredential.Builder().setJsonFactory(jsonFactory).setTransport(httpTransport).setClientSecrets(data.getClientID(), data.getClientSecret()).build().setFromTokenResponse(response);
+			return new GoogleDriveLoginInformation(null, credential.getAccessToken(), credential.getRefreshToken());
 		} catch (IOException ex) {
 			ReportUtil.getInstance().add(ex);
 		}
