@@ -4,6 +4,7 @@
  */
 package cloudstorage.communicator.convert;
 
+import cloudstorage.communicator.GoogleDriveCommunicator;
 import com.google.api.services.drive.model.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +21,17 @@ public class GoogleDriveConverter {
 	 * @return the converted object
 	 */
 	public static cloudstorage.data.File convert(File original) {
-		cloudstorage.data.File file = new cloudstorage.data.File(original.getId(), original.getTitle());
+		cloudstorage.data.File file = new cloudstorage.data.File(original.getId(), original.getTitle(), original.getDownloadUrl());
+		
+		// set additional file information
+		if (original.getFileSize() != null) file.setFileSize(original.getFileSize());
+		if (original.getMimeType() != null && original.getMimeType().equals("application/vnd.google-apps.folder")) file.setFolder(true);
+		if (original.getParents().size() > 0) {
+			cloudstorage.data.File parent = GoogleDriveCommunicator.getInstance().getFile(original.getParents().get(0).getId());
+			file.setParent(parent);
+		}
+		
+		// return file
 		return file;
 	}
 	

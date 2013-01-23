@@ -12,7 +12,9 @@ import cloudstorage.ui.GoogleDriveLoginInformationPanel;
 import cloudstorage.ui.HomePanel;
 import cloudstorage.ui.SettingsPanel;
 import java.io.File;
+import java.util.List;
 import megatherium.application.Application;
+import megatherium.communicator.data.Account;
 import megatherium.communicator.data.ILoginInformation;
 import megatherium.communicator.data.Platform;
 import megatherium.controller.MegatheriumController;
@@ -28,6 +30,7 @@ public class Controller extends MegatheriumController {
 	protected String[][] getReferences() {
 		return ArrayUtil.merge2(super.getReferences(), new String[][] {
 			{"megatherium.ui.account.login.information.show", "showLoginInformation"},
+			{"storage.data.file.list", "setFileListStatus"},
 			{"storage.ui.settings.cancel", "closeDialog"},
 			{"storage.ui.settings.save", "saveSettings"},
 			{"storage.ui.settings.show", "showSettings"}
@@ -54,6 +57,7 @@ public class Controller extends MegatheriumController {
 	/** References **/
 	public void saveAccountLoginInformation(GoogleDriveLoginInformation information) {super.saveAccountLoginInformation(information);}
 //	public void saveSettings(String uploadDirectory) {Application.getConfig(Config.class).setUploadDirectory(new cloudstorage.data.File())}
+	public void setFileListStatus(Account account, List<cloudstorage.data.File> files) {this.setStatus("Lade Dateien ("+files.size()+")");}
 	public void showLoginInformation(Platform platform) {
 		if (platform.getName().equals("googledrive")) {
 			((GoogleDriveLoginInformationPanel) this.getPanel("googleDriveLoginInformation")).setAuthenticationURL(GoogleDriveCommunicator.getInstance().getAuthorizationURL());

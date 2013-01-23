@@ -20,7 +20,7 @@ import megatherium.util.FileUtil;
 public class HelloMegatherium {
 	
 	public static void main(String[] args) throws IOException {
-		Config.set("debug", true, boolean.class);
+		Config.set("debug", false, boolean.class);
 		
 		// select account
 		MegatheriumCommunicator.getInstance().login("SargTeX", "thebospeler");
@@ -33,10 +33,15 @@ public class HelloMegatherium {
 		
 		// upload file
 //		GoogleDriveCommunicator.getInstance(gdriveAccount).upload("Hallo Megatherium", null, "text/plain", FileUtil.getDataPath()+"de.lang");
+		long systemTime1 = System.currentTimeMillis();
 		List<File> files = GoogleDriveCommunicator.getInstance(gdriveAccount).getFileList();
-		for (File file : files) {
-			System.out.println(file.getID()+": "+file.getName());
-		}
+		long systemTime2 = System.currentTimeMillis();
+		long difference = systemTime2 - systemTime1;
+		System.out.println("Total: Found "+files.size()+" files");
+		System.out.println("Took "+(difference/1000/60)+":"+((difference/1000)%60)+"min");
+//		for (File file : files) {
+//			System.out.println(file.getID()+": "+file.getName());
+//		}
 	}
 	
 }

@@ -59,7 +59,7 @@ public class Config {
 	 */
 	public static void save() {
 //		try {
-//			FileUtil.writeResource("config.data", JsonUtil.toJson(data));
+//			FileUtil.write("config.data", JsonUtil.toJson(data));
 //		} catch (IOException ex) {
 //			ReportUtil.getInstance().add(ex);
 //		}

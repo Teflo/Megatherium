@@ -11,6 +11,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.FileContent;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -18,6 +20,7 @@ import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.ParentReference;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ import megatherium.communicator.data.Account;
 import megatherium.data.store.PlatformStore;
 import megatherium.data.store.Stores;
 import megatherium.event.EventManager;
+import megatherium.io.StringOutputStream;
 import megatherium.util.ReportUtil;
 
 /**
@@ -39,6 +43,7 @@ import megatherium.util.ReportUtil;
  */
 public class GoogleDriveCommunicator extends CloudStorageCommunicator {
 
+	private static Account lastUsedAccount;
 	private Drive drive;
 	private static Map<String, GoogleDriveCommunicator> instances = new HashMap<String, GoogleDriveCommunicator>();
 	private Account account;
@@ -46,6 +51,7 @@ public class GoogleDriveCommunicator extends CloudStorageCommunicator {
 	private JsonFactory jsonFactory;
 	private GoogleDrivePlatformData data;
 	private GoogleAuthorizationCodeFlow flow;
+	private Map<String, cloudstorage.data.File> fileList = new HashMap<String, cloudstorage.data.File>();
 
 	private GoogleDriveCommunicator() {
 		this.initialize();
@@ -67,11 +73,7 @@ public class GoogleDriveCommunicator extends CloudStorageCommunicator {
 	 * @return the communicator
 	 */
 	public static GoogleDriveCommunicator getInstance() {
-		if (!instances.containsKey("0")) {
-			instances.put("0", new GoogleDriveCommunicator());
-		}
-
-		return instances.get("0");
+		return getInstance(lastUsedAccount);
 	}
 
 	/**
@@ -81,6 +83,7 @@ public class GoogleDriveCommunicator extends CloudStorageCommunicator {
 	 * @return the communicator
 	 */
 	public static GoogleDriveCommunicator getInstance(Account account) {
+		lastUsedAccount = account;
 		if (!instances.containsKey(account.getID() + "")) {
 			instances.put(account.getID() + "", new GoogleDriveCommunicator(account));
 		}
@@ -89,14 +92,83 @@ public class GoogleDriveCommunicator extends CloudStorageCommunicator {
 	}
 	
 	/**
-	 * Returns the list of files in the cloud storage.
+	 * Returns the file with that file id.
+	 * This method uses the cache what means that if the file's metadata has been received before, it will not be redownloaded.
+	 * 
+	 * @param id the id of the file
+	 * @return the file
+	 */
+	public cloudstorage.data.File getFile(String id) {
+		return getFile(id, true);
+	}
+	
+	/**
+	 * Returns the file with that file id.
+	 * 
+	 * @param id the id of the file
+	 * @param cache if true the method uses the memory cache
+	 * @return the file
+	 */
+	public cloudstorage.data.File getFile(String id, boolean cache) {
+		// look in cache
+		if (cache && fileList.containsKey(id)) return fileList.get(id);
+		
+		// fetch file
+		try {
+			cloudstorage.data.File file = GoogleDriveConverter.convert(drive.files().get(id).execute());
+			fileList.put(id, file);
+		
+			// return file
+			return file;
+		}catch (IOException ex) {
+			ReportUtil.getInstance().add(ex);
+		}
+		
+		// return null
+		return null;
+	}
+	
+	/**
+	 * Returns the list of all files in the cloud storage.
 	 * 
 	 * @return the file list
 	 */
 	public List<cloudstorage.data.File> getFileList() {
+		return getFileList(-1);
+	}
+	
+	/**
+	 * Returns the list of files in the cloud storage.
+	 * 
+	 * @param maximum the maximum list size or -1 if a complete file list should be received
+	 * @return the file list
+	 */
+	public List<cloudstorage.data.File> getFileList(int maximum) {
 		// call service
 		try {
-			return GoogleDriveConverter.convert(drive.files().list().execute().getItems());
+			FileList fileList = (maximum != -1) ? drive.files().list().setMaxResults(maximum).execute() : drive.files().list().execute();
+			List<cloudstorage.data.File> files = GoogleDriveConverter.convert(fileList.getItems());
+			if (maximum != -1) maximum -= files.size();
+			
+			// get files from other pages
+			while (fileList.getNextPageToken() != null) {
+				// tell event listener how much files where found
+				EventManager.getInstance().fireEvent("storage.data.file.list", account, files);
+				if (maximum <= 0 && maximum != -1) break;
+				
+				// fetch files
+				fileList = (maximum != -1) ? drive.files().list().setPageToken(fileList.getNextPageToken()).execute() : drive.files().list().setPageToken(fileList.getNextPageToken()).setMaxResults(maximum).execute();
+				
+				// put files into cache and list
+				for (File file : fileList.getItems()) {
+					cloudstorage.data.File file2 = GoogleDriveConverter.convert(file);
+					this.fileList.put(file2.getID(), file2);
+					files.add(file2);
+				}
+			}
+			
+			// return file list
+			return files;
 		}catch(IOException ex) {
 			ReportUtil.getInstance().add(ex);
 		}
@@ -123,6 +195,28 @@ public class GoogleDriveCommunicator extends CloudStorageCommunicator {
 		}catch (IOException ex) {
 			ReportUtil.getInstance().add(ex);
 		}
+	}
+	
+	/**
+	 * Downloads a file and returns it's content.
+	 * 
+	 * @param file the file
+	 * @return the file's content
+	 */
+	public String download(cloudstorage.data.File file) {
+		try {
+			if (file.getDownloadURL() == null) {
+				System.err.println("Datei konnte nicht heruntergeladen werden, da download-URL fehlt: "+file.getID()+" - "+file.getName());
+				return null;
+			}
+			HttpResponse resp = drive.getRequestFactory().buildGetRequest(new GenericUrl(file.getDownloadURL())).execute();
+			StringOutputStream stream = new StringOutputStream();
+			resp.download(stream);
+			return stream.toString();
+		} catch (IOException ex) {
+			ReportUtil.getInstance().add(ex);
+		}
+		return null;
 	}
 
 	/**

@@ -54,14 +54,38 @@ public class FileUtil {
 		}
 		return file;
 	}
+	
+	/**
+	 * Writes the content into a file within the data directory. If the file doesn't exist, creates it.
+	 * 
+	 * @param name the name of the file (including the paths aso)
+	 * @param content the content of the file
+	 * @throws IOException
+	 */
+	public static void write(String name, String content) throws IOException {
+		write(getDataPath(), name, content, true);
+	}
 
-	public static void writeResource(String filename, String content) throws IOException {
+	/**
+	 * Writes the content into a file.
+	 * 
+	 * @param path the path where the file is located
+	 * @param name the name of the file
+	 * @param content the content of the file
+	 * @param autoCreate if true, if the file doesn't exist it will be created
+	 * @throws IOException 
+	 */
+	public static void write(String path, String name, String content, boolean autoCreate) throws IOException {
 		// manipulate file name
-		filename = getDataPath()+filename;
-		filename = filename.replaceAll("%20", " ");
+		name = name.replaceAll("%20", " ");
+		
+		// get file
+		File file = new File(path, name);
+		if (!file.getParentFile().exists() && autoCreate && !file.getParentFile().mkdirs()) throw new IOException("Could not create folders");
+		if (!file.exists() && autoCreate) file.createNewFile();
 		
 		// write file
-		FileWriter fstream = new FileWriter(filename);
+		FileWriter fstream = new FileWriter(file);
 		BufferedWriter out = new BufferedWriter(fstream);
 		out.write(content);
 		
