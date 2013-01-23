@@ -26,7 +26,8 @@ public class AccountListPanel extends EventPanel {
 	public AccountListPanel() {
 		initComponents();
 		
-		EventManager.getInstance().addAfterListener("megatherium.ui.account.list.show", this, "update");
+		EventManager.getInstance().addListener("megatherium.ui.account.list.show", this, "update");
+		this.setStatus("Initialisiert.");
 	}
 	
 	/**
@@ -45,6 +46,7 @@ public class AccountListPanel extends EventPanel {
 		((AccountTableModel) this.jTable1.getModel()).setAccounts(accounts);
 		this.repaint();
 	}
+	
 	
 	/**
 	 * Sets the current status.
@@ -69,6 +71,7 @@ public class AccountListPanel extends EventPanel {
         jLabel1 = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
         addButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         jTable1.setModel(new AccountTableModel());
         jScrollPane1.setViewportView(jTable1);
@@ -81,6 +84,13 @@ public class AccountListPanel extends EventPanel {
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
+            }
+        });
+
+        backButton.setText("Zurück");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -99,20 +109,26 @@ public class AccountListPanel extends EventPanel {
                         .addGap(18, 18, 18)
                         .addComponent(status)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addButton)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(status)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(status)))
                     .addComponent(addButton))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -120,8 +136,13 @@ public class AccountListPanel extends EventPanel {
         EventManager.getInstance().fireEvent("megatherium.ui.account.create.show");
     }//GEN-LAST:event_addButtonActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        EventManager.getInstance().fireEvent("megatherium.ui.home.show");
+    }//GEN-LAST:event_backButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

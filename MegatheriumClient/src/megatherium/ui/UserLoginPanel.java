@@ -105,7 +105,9 @@ public class UserLoginPanel extends EventPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+		
 		EventManager.getInstance().fireEvent("megatherium.data.user.login", this.login.getText(), new String(this.password.getPassword()));
+		
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registrationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrationButtonActionPerformed

@@ -47,6 +47,9 @@ public class FileUtil {
 		filename = getDataPath()+filename;
 		filename = filename.replaceAll("%20", " ");
 		BufferedReader reader = new BufferedReader(new FileReader(filename));
+		
+		
+		
 		String line = "";
 		String file = "";
 		while ((line = reader.readLine()) != null) {

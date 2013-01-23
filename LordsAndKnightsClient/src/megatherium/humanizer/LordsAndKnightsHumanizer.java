@@ -42,7 +42,12 @@ public class LordsAndKnightsHumanizer extends Humanizer {
 	protected void registerEventListeners() {
 		super.registerEventListeners();
 		
-		EventManager.getInstance().addAfterListener("lordsandknights.request.world.change", LordsAndKnightsCommunicator.getInstance(), "callPoliticalTileList");
+		EventManager.getInstance().addAfterListener("lordsandknights.request.world.change", this, "callPoliticalTieList");
+	}
+	
+	/** References **/
+	public void callPoliticalTieList() {
+		LordsAndKnightsCommunicator.getInstance().callPoliticalTieList();
 	}
 	
 }

@@ -27,6 +27,7 @@ import megatherium.humanizer.LordsAndKnightsHumanizer;
 import megatherium.task.lordsandknights.AttackSheduler;
 import megatherium.request.MegatheriumRequest;
 import megatherium.util.ArrayUtil;
+import megatherium.util.JsonUtil;
 
 /**
  *
@@ -34,9 +35,10 @@ import megatherium.util.ArrayUtil;
  */
 public class LordsAndKnightsController extends MegatheriumController {
 	
+	private boolean loadedUserData = false;
+	
 	@Override
 	public void initializePanels() {
-		Config.set("debug", false, boolean.class);
 		super.initializePanels();
 		
 		// add panels
@@ -97,7 +99,7 @@ public class LordsAndKnightsController extends MegatheriumController {
 	}
 	
 	/**
-	 * Creates a new sheduled attack.
+	 * Creates a new scheduled attack.
 	 * 
 	 * @param account the account
 	 * @param time the timestamp
@@ -115,7 +117,7 @@ public class LordsAndKnightsController extends MegatheriumController {
 	 * @param attack the attack
 	 */
 	public void performAttack(Attack attack) {
-		LordsAndKnightsCommunicator.getInstance(attack.getAccountID()).sendUnits(attack.getStartHabitatID(), attack.getTargetHabitatID(), attack.getResourcesAsMap(), attack.getUnitsAsMap());
+		LordsAndKnightsCommunicator.getInstance().sendUnits(attack.getStartHabitatID(), attack.getTargetHabitatID(), attack.getResourcesAsMap(), attack.getUnitsAsMap());
 	}
 	
 	/**
@@ -196,18 +198,27 @@ public class LordsAndKnightsController extends MegatheriumController {
 	 * Loads the user data from the browsergame.
 	 */
 	public void loadUserData() {
-		this.loadAccountList();
-		
+		if( loadedUserData ) return;
 		// loop through account list, load session data and upload it to the server
-		for (Account account : ((AccountStore)Stores.getInstance().getStore("accountStore")).getItems()) {
+		for (Account account : Stores.get("accountStore", AccountStore.class).getItems("lordsandknights")) {
 			LoginInformation loginInformation = account.getLoginInformation(LoginInformation.class);
 			
 			// try to login
-			if (LordsAndKnightsCommunicator.getInstance(account.getID()).login(loginInformation.getLogin(), loginInformation.getPassword())) {
-				Session session = LordsAndKnightsCommunicator.getInstance(account.getID()).changeWorld(loginInformation.getWorld());
+			if (LordsAndKnightsCommunicator.getInstance(account).login(loginInformation.getLogin(), loginInformation.getPassword())) {
+				System.out.println(JsonUtil.toJson(loginInformation));
+				Session session = LordsAndKnightsCommunicator.getInstance(account).changeWorld();
 				LordsAndKnightsMegatheriumCommunicator.getInstance().updatePlayerData(account.getID(), session.getPlayer());
+				loadedUserData = true;
 			}
 		}
+	}
+	
+	/**
+	 * Forces to reload the user data from the browsergame
+	 */
+	public void forceReloadUserData(){
+		loadedUserData = false;
+		loadUserData();
 	}
 	
 }

@@ -20,6 +20,20 @@ public class AccountStore extends Store<Account> {
 		return "accountStore";
 	}
 	
+	/**
+	 * Returns all accounts from the specified platform.
+	 * 
+	 * @param platformName the name of the platform
+	 * @return the account list
+	 */
+	public Account[] getItems(String platformName) {
+		List<Account> accountList = new ArrayList<Account>();
+		for (Account account : this.getItems()) {
+			if (account.getPlatformName().equals(platformName)) accountList.add(account);
+		}
+		return accountList.toArray(new Account[]{});
+	}
+	
 	@Override
 	public void load() {
 		this.add(MegatheriumCommunicator.getInstance().getAccountList());

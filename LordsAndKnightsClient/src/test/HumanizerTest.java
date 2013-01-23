@@ -5,6 +5,7 @@
 package test;
 
 import megatherium.communicator.LordsAndKnightsCommunicator;
+import megatherium.config.Config;
 import megatherium.data.lordsandknights.Session;
 import megatherium.data.lordsandknights.World;
 import megatherium.humanizer.LordsAndKnightsHumanizer;
@@ -17,6 +18,7 @@ import megatherium.util.JsonUtil;
 public class HumanizerTest {
 	
 	public static void main(String[] args) {
+		Config.set("debug", false, boolean.class);
 		LordsAndKnightsHumanizer.initialize();
 		
 		// do stuff

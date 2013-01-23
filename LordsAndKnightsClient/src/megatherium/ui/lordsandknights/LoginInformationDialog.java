@@ -49,11 +49,11 @@ public class LoginInformationDialog extends megatherium.ui.LoginInformationDialo
         email = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         world = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
+        testButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -61,17 +61,17 @@ public class LoginInformationDialog extends megatherium.ui.LoginInformationDialo
 
         jLabel2.setText("Passwort:");
 
-        jButton1.setText("Speichern");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        saveButton.setText("Speichern");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                saveButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Abbrechen");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setText("Abbrechen");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
 
@@ -80,10 +80,10 @@ public class LoginInformationDialog extends megatherium.ui.LoginInformationDialo
         world.setModel(new WorldComboBoxModel());
         world.setEnabled(false);
 
-        jButton3.setText("Testen");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        testButton.setText("Testen");
+        testButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                testButtonActionPerformed(evt);
             }
         });
 
@@ -99,9 +99,9 @@ public class LoginInformationDialog extends megatherium.ui.LoginInformationDialo
                         .addGap(66, 66, 66)
                         .addComponent(world, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(saveButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(cancelButton)
                         .addGap(0, 190, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +112,7 @@ public class LoginInformationDialog extends megatherium.ui.LoginInformationDialo
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(password)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3))
+                                .addComponent(testButton))
                             .addComponent(email))))
                 .addContainerGap())
         );
@@ -127,40 +127,40 @@ public class LoginInformationDialog extends megatherium.ui.LoginInformationDialo
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(testButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(world, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(saveButton)
+                    .addComponent(cancelButton))
                 .addContainerGap(146, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         this.loginInformation = new LoginInformation(this.email.getText(), new String(this.password.getPassword()), (World) world.getModel().getSelectedItem());
 		this.setVisible(false);
 		
 		EventManager.getInstance().fireEvent("megatherium.ui.account.login.information.save", this.loginInformation);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_saveButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void testButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testButtonActionPerformed
         if (LordsAndKnightsCommunicator.getInstance().login(this.email.getText(), new String(this.password.getPassword()))) {
 			this.email.setEnabled(false);
 			this.password.setEnabled(false);
 			this.world.setEnabled(true);
 			this.loadWorlds();
 		} else JOptionPane.showMessageDialog(this, "Bitte gebe korrekte Kontodaten ein.");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_testButtonActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -204,14 +204,14 @@ public class LoginInformationDialog extends megatherium.ui.LoginInformationDialo
 		});
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
     private javax.swing.JTextField email;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField password;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JButton testButton;
     private javax.swing.JComboBox world;
     // End of variables declaration//GEN-END:variables
 

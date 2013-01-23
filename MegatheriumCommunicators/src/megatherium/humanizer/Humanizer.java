@@ -37,7 +37,7 @@ public abstract class Humanizer {
 	/**
 	 * Waits a random amount of time.
 	 */
-	protected void delay() {
+	public void delay() {
 		synchronized (this) {
 			try {
 				double time = MathUtil.getRandom(500, 1500);

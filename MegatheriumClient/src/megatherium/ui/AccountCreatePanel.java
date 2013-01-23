@@ -26,6 +26,15 @@ public class AccountCreatePanel extends EventPanel implements IEventListener {
 		initComponents();
 		
 		EventManager.getInstance().addListener("megatherium.ui.account.create.show", this);
+		
+	}
+	
+	
+	/**
+	 * Resets the inputs.
+	 */
+	public void reset() {
+		this.alias.setText("");
 	}
 	
 	/**
@@ -62,8 +71,8 @@ public class AccountCreatePanel extends EventPanel implements IEventListener {
         jLabel2 = new javax.swing.JLabel();
         alias = new javax.swing.JTextField();
         addLoginInformation = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
         jLabel1.setText("Plattform:");
 
@@ -83,14 +92,19 @@ public class AccountCreatePanel extends EventPanel implements IEventListener {
             }
         });
 
-        jButton2.setText("Speichern");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        saveButton.setText("Speichern");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                saveButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Abbrechen");
+        cancelButton.setText("Abbrechen");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,9 +125,9 @@ public class AccountCreatePanel extends EventPanel implements IEventListener {
                                 .addComponent(addLoginInformation))
                             .addComponent(alias)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(saveButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(cancelButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -131,8 +145,8 @@ public class AccountCreatePanel extends EventPanel implements IEventListener {
                     .addComponent(alias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(saveButton)
+                    .addComponent(cancelButton))
                 .addContainerGap(184, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -141,22 +155,29 @@ public class AccountCreatePanel extends EventPanel implements IEventListener {
 		EventManager.getInstance().fireEvent("megatherium.ui.account.login.information.show", this.platform.getSelectedItem());
     }//GEN-LAST:event_addLoginInformationActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
 		EventManager.getInstance().fireEvent("megatherium.data.account.create", ((Platform) this.platform.getSelectedItem()).getName(), this.alias.getText(), (ILoginInformation) this.loginInformation);
-    }//GEN-LAST:event_jButton2ActionPerformed
+		this.alias.setText("");
+		EventManager.getInstance().fireEvent("megatherium.ui.account.list.show");
+		
+    }//GEN-LAST:event_saveButtonActionPerformed
 
     private void platformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_platformActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_platformActionPerformed
 
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+		EventManager.getInstance().fireEvent("megatherium.ui.account.list.show");
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addLoginInformation;
     private javax.swing.JTextField alias;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JComboBox platform;
+    private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
 
 	@Override

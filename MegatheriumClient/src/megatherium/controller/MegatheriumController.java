@@ -56,7 +56,8 @@ public class MegatheriumController extends Controller {
 			{"megatherium.ui.file.choose.save", "setChosenFiles"},
 			{"megatherium.ui.file.choose.show", "showFileChooser"},
 			{"megatherium.ui.user.create.show", "showUserCreate"},
-			{"megatherium.ui.user.login.show", "showUserLogin"}
+			{"megatherium.ui.user.login.show", "showUserLogin"},
+			{"megatherium.ui.home.show", "showHomePanel"}
 		};
 	}
 	
@@ -94,13 +95,6 @@ public class MegatheriumController extends Controller {
 	 */
 	public void reportUnknownHost(String host) {
 		this.showNotification(LanguageServer.getInstance().get("megatherium.error.request.unknownHost")+": "+host);
-	}
-	
-	/**
-	 * Loads the list of accounts for the current user.
-	 */
-	public void loadAccountList() {
-		Stores.getInstance().getStore("accountStore").load();
 	}
 	
 	/**
@@ -179,6 +173,7 @@ public class MegatheriumController extends Controller {
 	public void showHomePanel() {this.display("homePanel");}
 	public void showUserLogin() {this.display("userLogin");}
 	public void showUserCreate() {this.display("userCreate");}
+	
 	
 	/**
 	 * Displays a notification whether the user was successfully logged in or not.
