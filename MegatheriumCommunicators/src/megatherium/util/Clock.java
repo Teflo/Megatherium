@@ -21,7 +21,7 @@ import megatherium.event.IUniversalListener;
 public class Clock extends Thread {
 	private Map<String, List<IEventListener>> listenerList = new HashMap<String, List<IEventListener>>();
 	private static Clock instance;
-	private int time;
+	private long time;
 	private Clock() {}
 	
 	/**
@@ -42,7 +42,7 @@ public class Clock extends Thread {
 	public void run() {
 		while (true) {
 			synchronized (this) {
-				this.setTime((int) (System.currentTimeMillis()/1000));
+				this.setTime( (System.currentTimeMillis()));
 				try {
 					wait(500);
 				} catch (InterruptedException ex) {
@@ -57,7 +57,7 @@ public class Clock extends Thread {
 	 * 
 	 * @return the time stamp
 	 */
-	public int getTime() {
+	public long getTime() {
 		return this.time;
 	}
 	
@@ -67,7 +67,7 @@ public class Clock extends Thread {
 	 * 
 	 * @param time the current time
 	 */
-	public void setTime(int time) {
+	public void setTime(long time) {
 		if (time == this.time) return;
 		this.time = time;
 		this.callListeners();
@@ -91,7 +91,7 @@ public class Clock extends Thread {
 	 * @param time an UNIX-timestamp. after this time was reached by the system time, the listener will be called
 	 * @param listener the listener
 	 */
-	public void addListener(int time, IEventListener listener) {
+	public void addListener(long time, IEventListener listener) {
 		if (!this.listenerList.containsKey(time+"")) this.listenerList.put(time+"", new ArrayList<IEventListener>());
 		this.listenerList.get(time+"").add(listener);
 	}

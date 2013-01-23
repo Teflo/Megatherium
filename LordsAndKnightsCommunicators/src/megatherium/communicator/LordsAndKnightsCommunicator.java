@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import megatherium.communicator.data.Account;
 import megatherium.data.lordsandknights.Map;
 import megatherium.data.lordsandknights.Session;
 import megatherium.data.lordsandknights.World;
@@ -19,6 +20,7 @@ import megatherium.communicator.data.lordsandknights.Position;
 import megatherium.communicator.data.lordsandknights.Size;
 import megatherium.config.Config;
 import megatherium.data.lordsandknights.Habitat;
+import megatherium.data.lordsandknights.LoginInformation;
 import megatherium.data.lordsandknights.Tile;
 import megatherium.event.IEventListener;
 import megatherium.event.IUniversalListener;
@@ -33,6 +35,14 @@ import megatherium.util.ReportUtil;
 public class LordsAndKnightsCommunicator implements IGameCommunicator {
 	private static java.util.Map<String, LordsAndKnightsCommunicator> instances = new HashMap<String, LordsAndKnightsCommunicator>();
 	public Session getSession() {return this.session;}
+	
+	private LordsAndKnightsCommunicator( Account account ) {
+		this.account = account;
+		LoginInformation info = account.getLoginInformation(LoginInformation.class);
+		this.login = info.getLogin();
+		this.password = info.getPassword();
+		this.world = info.getWorld();
+	}
 	
 	/**
 	 * Contains the login, means the email adress of the user.
@@ -55,6 +65,10 @@ public class LordsAndKnightsCommunicator implements IGameCommunicator {
 	 */
 	private final int MAP_SIZE = 32;
 	
+	private Account account;
+	
+	private static Account lastUserAccount;
+	
 	/**
 	 * Returns an undefined instance of the communicator.
 	 * This uses the accountID "0".
@@ -62,7 +76,7 @@ public class LordsAndKnightsCommunicator implements IGameCommunicator {
 	 * @return the instance
 	 */
 	public static LordsAndKnightsCommunicator getInstance() {
-		return getInstance(0);
+		return getInstance(lastUserAccount);
 	}
 	
 	/**
@@ -71,12 +85,14 @@ public class LordsAndKnightsCommunicator implements IGameCommunicator {
 	 * @param accountID the id of the account or some other id identifying this instance
 	 * @return the instance
 	 */
-	public static LordsAndKnightsCommunicator getInstance(int accountID) {
+	public static LordsAndKnightsCommunicator getInstance(Account account) {
+		lastUserAccount = account;
+		int accountID = (account != null) ? account.getID() : 0;
 		if (!instances.containsKey(accountID+"")) {
-			instances.put(accountID+"", new LordsAndKnightsCommunicator());
+			instances.put(accountID+"", new LordsAndKnightsCommunicator(account));
 		}
 		
-		return instances.get(accountID+"");
+		return instances.get(account.getID()+"");
 	}
 
 	/**
@@ -170,6 +186,10 @@ public class LordsAndKnightsCommunicator implements IGameCommunicator {
 		
 		// return session
 		return this.session;
+	}
+	
+	public Session changeWorld() {
+		return this.changeWorld(this.world);
 	}
 	
 	/**

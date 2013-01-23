@@ -103,7 +103,7 @@ public class AttackTableModel extends javax.swing.table.DefaultTableModel {
 			case 2:
 				return attack.getTargetHabitatID();
 			case 3:
-				return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(attack.getTime()*1000);
+				return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(attack.getTime());
 		}
 		return null;
 	}

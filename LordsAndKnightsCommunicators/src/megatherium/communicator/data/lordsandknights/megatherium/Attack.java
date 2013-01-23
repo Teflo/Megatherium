@@ -16,7 +16,7 @@ public class Attack {
 	private int accountID;
 	private int startHabitatID;
 	private int targetHabitatID;
-	private int time;
+	private long time;
 	private boolean executed;
 	private HabitatResource[] resources;
 	private HabitatUnit[] units;
@@ -24,7 +24,7 @@ public class Attack {
 	public int getAccountID() {return this.accountID;}
 	public int getStartHabitatID() {return this.startHabitatID;}
 	public int getTargetHabitatID() {return this.targetHabitatID;}
-	public int getTime() {return this.time;}
+	public long getTime() {return this.time;}
 	public boolean isExecuted() {return this.executed;}
 	public HabitatResource[] getResources() {return this.resources;}
 	public HabitatUnit[] getUnits() {return this.units;}
