@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import megatherium.communicator.data.lordsandknights.megatherium.HabitatResource;
 import megatherium.communicator.data.lordsandknights.megatherium.HabitatUnit;
 import megatherium.communicator.data.lordsandknights.megatherium.Resource;
@@ -26,6 +28,7 @@ public class UnitTableModel extends javax.swing.table.DefaultTableModel {
 	protected Map<String, String> amounts = new HashMap<String, String>();
 	
 	public UnitTableModel(HabitatUnit[] items) {
+		
 		for (HabitatUnit item : items) this.items2.add(item);
 	}
 	

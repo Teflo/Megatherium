@@ -23,6 +23,7 @@ public class Clock extends Thread {
 	private static Clock instance;
 	private long time;
 	private Clock() {}
+	private boolean abort = false;
 	
 	/**
 	 * Returns the current clock instance.
@@ -40,7 +41,7 @@ public class Clock extends Thread {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (!abort) {
 			synchronized (this) {
 				this.setTime( (System.currentTimeMillis()));
 				try {
@@ -83,6 +84,7 @@ public class Clock extends Thread {
 		for (IEventListener listener : listeners) {
 			listener.execute(new Object[] {this.time});
 		}
+		
 	}
 	
 	/**
@@ -94,6 +96,13 @@ public class Clock extends Thread {
 	public void addListener(long time, IEventListener listener) {
 		if (!this.listenerList.containsKey(time+"")) this.listenerList.put(time+"", new ArrayList<IEventListener>());
 		this.listenerList.get(time+"").add(listener);
+	}
+	
+	/**
+	 * Aborts the run method.
+	 */
+	public void abort(){
+		this.abort = true;
 	}
 	
 }

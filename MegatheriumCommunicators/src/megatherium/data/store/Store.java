@@ -33,7 +33,9 @@ public abstract class Store<T> {
 	/**
 	 * Loads the data from remote or from a file and adds it into the store.
 	 */
-	public abstract void load();
+	public void load() {
+		this.itemList.clear();
+	}
 	
 	/**
 	 * Adds an object to the store.

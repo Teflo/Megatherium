@@ -30,19 +30,19 @@ public class Attack extends DatabaseObject {
     public int getAccountID() {return Integer.parseInt(this.get("accountID"));}
     public int getStartHabitatID() {return Integer.parseInt(this.get("startHabitatID"));}
     public int getTargetHabitatID() {return Integer.parseInt(this.get("targetHabitatID"));}
-	public int getTime() {return Integer.parseInt(this.get("time"));}
+	public long getTime() {return Long.parseLong(this.get("time"));}
 	public boolean hasExecuted() {return (this.get("executed").equals("1"));}
 	public Attack setAccountID(int accountID) {this.set("accountID", accountID+""); return this;}
 	public Attack setStartHabitatID(int startHabitatID) {this.set("startHabitatID", startHabitatID+""); return this;}
 	public Attack setTargetHabitatID(int targetHabitatID) {this.set("targetHabitatID", targetHabitatID+""); return this;}
-	public Attack setTime(int time) {this.set("time", time+""); return this;}
+	public Attack setTime(long time) {this.set("time", time+""); return this;}
 	public Attack setExecuted(boolean executed) {this.set("executed", (executed) ? "1" : "0"); return this;}
 	public Attack setUnits(AttackUnit[] units) {this.setLinkedResource("units", units); return this;}
 	public Attack setResources(AttackResource[] resources) {this.setLinkedResource("resources", Arrays.copyOf(resources, resources.length, DatabaseObject[].class)); return this;}
 
     @Override
     protected String[] getFields() {
-		return new String[] {"id", "accountID", "attackHabitatID", "targetHabitatID", "time", "executed"};
+		return new String[] {"id", "accountID", "startHabitatID", "targetHabitatID", "time", "executed"};
     }
 
 	@Override

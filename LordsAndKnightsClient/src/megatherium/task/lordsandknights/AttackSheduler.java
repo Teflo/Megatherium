@@ -14,6 +14,7 @@ import megatherium.event.EventManager;
 import megatherium.event.IEventListener;
 import megatherium.event.IUniversalListener;
 import megatherium.util.Clock;
+import megatherium.util.Clock2;
 
 /**
  *
@@ -29,14 +30,26 @@ public class AttackSheduler {
 	 * Hangs into the clock for sheduled attacks.
 	 */
 	public void initializeEvents() {
-		for (final Attack attack : ((AttackStore) Stores.getInstance().getStore("attackStore")).getItems()) {
-			Clock.getInstance().addListener(attack.getTime(), new IEventListener() {
+//		for (final Attack attack : ((AttackStore) Stores.getInstance().getStore("attackStore")).getItems()) {
+//			Clock.getInstance().addListener(attack.getTime(), new IEventListener() {
+//				@Override
+//				public void execute(Object[] parameters) {
+//					((LordsAndKnightsController) Application.getController()).performAttack(attack);
+//				}
+//			});
+//		}
+		for (final Attack attack : ((AttackStore) Stores.getInstance().getStore("attackStore")).getItems())
+			addAttackListener(attack);
+	}
+	
+	public void addAttackListener(final Attack attack) {
+		Clock2.getInstance().addListener(attack.getTime(), new IEventListener(){
 				@Override
-				public void execute(Object[] parameters) {
-					((LordsAndKnightsController) Application.getController()).performAttack(attack);
+				public void execute( Object[] parameters) {
+					if( ((LordsAndKnightsController)Application.getController()).hasActiveAttacks() )
+						((LordsAndKnightsController) Application.getController()).performAttack(attack);
 				}
 			});
-		}
 	}
 	
 }

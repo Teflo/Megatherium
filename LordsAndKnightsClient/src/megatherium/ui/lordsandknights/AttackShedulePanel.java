@@ -36,7 +36,8 @@ public class AttackShedulePanel extends EventPanel {
 	 * Loads the attack list from the store into the table model.
 	 */
 	public void load() {
-		AttackTableModel model = new AttackTableModel(((AttackStore) Stores.getInstance().getStore("attackStore")).getItems().toArray(new Attack[]{}));
+		
+		AttackTableModel model = new AttackTableModel(Stores.get("attackStore", AttackStore.class).getItems().toArray(new Attack[]{}));
 		this.jTable2.setModel(model);
 	}
 

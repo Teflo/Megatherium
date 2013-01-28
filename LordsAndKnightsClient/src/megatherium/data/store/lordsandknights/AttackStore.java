@@ -17,6 +17,7 @@ public class AttackStore extends Store<Attack> {
 
 	@Override
 	public void load() {
+		super.load();
 		this.add(LordsAndKnightsMegatheriumCommunicator.getInstance().getAttackList());
 	}
 

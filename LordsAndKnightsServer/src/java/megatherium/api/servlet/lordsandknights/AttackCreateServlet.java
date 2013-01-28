@@ -28,7 +28,7 @@ public class AttackCreateServlet extends DefaultServlet {
 	private int accountID;
 	private int startHabitatID;
 	private int targetHabitatID;
-	private int time;
+	private long time;
 	private Map<String, String> units = new HashMap<String, String>();
 	private Map<String, String> resources = new HashMap<String, String>();
 	
@@ -37,7 +37,7 @@ public class AttackCreateServlet extends DefaultServlet {
 		if (hasParam("accountID")) this.accountID = Integer.parseInt(getParam("accountID"));
 		if (hasParam("startHabitatID")) this.startHabitatID = Integer.parseInt(getParam("startHabitatID"));
 		if (hasParam("targetHabitatID")) this.targetHabitatID = Integer.parseInt(getParam("targetHabitatID"));
-		if (hasParam("time")) this.time = Integer.parseInt(getParam("time"));
+		if (hasParam("time")) this.time = Long.parseLong(getParam("time"));
 		if (hasParam("units")) this.units = JsonUtil.getGson().fromJson(getParam("units"), this.units.getClass());
 		if (hasParam("resources")) this.resources = JsonUtil.getGson().fromJson(getParam("resources"), this.resources.getClass());
 	}

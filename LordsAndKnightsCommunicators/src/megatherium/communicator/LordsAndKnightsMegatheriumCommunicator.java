@@ -5,6 +5,7 @@
 package megatherium.communicator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import megatherium.communicator.MegatheriumCommunicator;
@@ -100,7 +101,7 @@ public class LordsAndKnightsMegatheriumCommunicator extends MegatheriumCommunica
 	 * @param units a map with the unit amounts
 	 * @return the server response
 	 */
-	public Response createAttack(int accountID, int startHabitatID, int targetHabitatID, int time, Map<String, String> resources, Map<String, String> units) {
+	public Response createAttack(int accountID, int startHabitatID, int targetHabitatID, long time, HashMap<String, String> resources, HashMap<String, String> units) {
 		MegatheriumRequest request = MegatheriumRequest.create("attack", "create");
 		return request.set("accountID", accountID).set("startHabitatID", startHabitatID).set("targetHabitatID", targetHabitatID).set("time", time).set("resources", resources).set("units", units).exec();
 	}

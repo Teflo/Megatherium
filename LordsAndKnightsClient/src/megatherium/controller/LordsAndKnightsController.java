@@ -4,6 +4,7 @@
  */
 package megatherium.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import megatherium.ui.lordsandknights.AttackCreatePanel;
 import megatherium.communicator.LordsAndKnightsMegatheriumCommunicator;
@@ -27,6 +28,7 @@ import megatherium.humanizer.LordsAndKnightsHumanizer;
 import megatherium.task.lordsandknights.AttackSheduler;
 import megatherium.request.MegatheriumRequest;
 import megatherium.util.ArrayUtil;
+import megatherium.util.Clock2;
 import megatherium.util.JsonUtil;
 
 /**
@@ -36,6 +38,7 @@ import megatherium.util.JsonUtil;
 public class LordsAndKnightsController extends MegatheriumController {
 	
 	private boolean loadedUserData = false;
+	private boolean activeAttack = false;
 	
 	@Override
 	public void initializePanels() {
@@ -58,6 +61,7 @@ public class LordsAndKnightsController extends MegatheriumController {
 		
 		// initialize humanizer
 		new LordsAndKnightsHumanizer();
+		Clock2.getInstance();
 	}
 	
 	@Override
@@ -65,6 +69,7 @@ public class LordsAndKnightsController extends MegatheriumController {
 		return ArrayUtil.merge2(super.getReferences(), new String[][] {
 			{"lordsandknights.ui.attack.create.show", "showAttackCreate"},
 			{"lordsandknights.ui.attack.shedule.show", "showAttackShedule"},
+			{"lordsandknights.data.attack.create", "createAttack"},
 			{"lordsandknights.ui.resource.selection.cancel", "cancelResourceSelection"},
 			{"lordsandknights.ui.resource.selection.save", "saveResourceSelection"},
 			{"lordsandknights.ui.resource.selection.show", "showResourceSelection"},
@@ -74,15 +79,15 @@ public class LordsAndKnightsController extends MegatheriumController {
 			{"megatherium.ui.account.login.information.show", "showLoginInformation"}
 		});
 	}
-	
-	@Override
-	public void execute(String event, String position, Object[] parameters) {
-		switch(event) {
-			case "createAttack":
-				this.createAttack((int) parameters[0], (int) parameters[1], (int) parameters[2], (int) parameters[3], (Map<String, String>) parameters[4], (Map<String, String>) parameters[5]);
-				break;
-		}
-	}
+//	
+//	@Override
+//	public void execute(String event, String position, Object[] parameters) {
+//		switch(event) {
+//			case "createAttack":
+//				this.createAttack((int) parameters[0], (int) parameters[1], (int) parameters[2], (int) parameters[3], (Map<String, String>) parameters[4], (Map<String, String>) parameters[5]);
+//				break;
+//		}
+//	}
 	
 	/**
 	 * Stops the selection of resources.
@@ -107,7 +112,7 @@ public class LordsAndKnightsController extends MegatheriumController {
 	 * @param resources a map with the amount of resources
 	 * @param units a map with the amount of units
 	 */
-	public void createAttack(int accountID, int startHabitatID, int targetHabitatID, int time, Map<String, String> resources, Map<String, String> units) {
+	public void createAttack(Integer accountID, Integer startHabitatID, Integer targetHabitatID, Long time, HashMap<String, String> resources, HashMap<String, String> units) {
 		LordsAndKnightsMegatheriumCommunicator.getInstance().createAttack(accountID, startHabitatID, targetHabitatID, time, resources, units);
 	}
 	
@@ -117,7 +122,7 @@ public class LordsAndKnightsController extends MegatheriumController {
 	 * @param attack the attack
 	 */
 	public void performAttack(Attack attack) {
-		LordsAndKnightsCommunicator.getInstance().sendUnits(attack.getStartHabitatID(), attack.getTargetHabitatID(), attack.getResourcesAsMap(), attack.getUnitsAsMap());
+		LordsAndKnightsCommunicator.getInstance().sendUnits(attack.getStartHabitatID(), attack.getTargetHabitatID(), attack.getUnitsAsMap(), attack.getResourcesAsMap());
 	}
 	
 	/**
@@ -125,7 +130,7 @@ public class LordsAndKnightsController extends MegatheriumController {
 	 * 
 	 * @param amounts the amount map
 	 */
-	public void saveResourceSelection(Map<String, String> amounts) {
+	public void saveResourceSelection(HashMap<String, String> amounts) {
 		this.closeDialog();
 	}
 	
@@ -134,7 +139,7 @@ public class LordsAndKnightsController extends MegatheriumController {
 	 * 
 	 * @param amounts the amount map
 	 */
-	public void saveUnitSelection(Map<String, String> amounts) {
+	public void saveUnitSelection(HashMap<String, String> amounts) {
 		this.closeDialog();
 	}
 	
@@ -219,6 +224,19 @@ public class LordsAndKnightsController extends MegatheriumController {
 	public void forceReloadUserData(){
 		loadedUserData = false;
 		loadUserData();
+	}
+	
+	public boolean hasActiveAttacks() {
+		return activeAttack;
+	}
+	
+	/**
+	 * Sets if attacks are handled or not.
+	 * 
+	 * @param value 
+	 */
+	public void setActiveAttaack(boolean value) {
+		this.activeAttack = value;
 	}
 	
 }

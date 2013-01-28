@@ -19,7 +19,7 @@ import megatherium.data.store.lordsandknights.WorldStore;
 public class LordsAndKnightsClientApplication extends Application {
 	
 	public static void main(String[] args) {
-		Config.set("debug", false, boolean.class);
+		Config.set("debug", true, boolean.class);
 		LordsAndKnightsClientApplication app = new LordsAndKnightsClientApplication();
 	}
 	

@@ -37,6 +37,8 @@ public class LordsAndKnightsCommunicator implements IGameCommunicator {
 	public Session getSession() {return this.session;}
 	
 	private LordsAndKnightsCommunicator( Account account ) {
+		if( account == null )
+			return;
 		this.account = account;
 		LoginInformation info = account.getLoginInformation(LoginInformation.class);
 		this.login = info.getLogin();
@@ -92,7 +94,7 @@ public class LordsAndKnightsCommunicator implements IGameCommunicator {
 			instances.put(accountID+"", new LordsAndKnightsCommunicator(account));
 		}
 		
-		return instances.get(account.getID()+"");
+		return instances.get(accountID+"");
 	}
 
 	/**
@@ -219,7 +221,9 @@ public class LordsAndKnightsCommunicator implements IGameCommunicator {
 	 * @return the server response
 	 */
 	public String sendUnits(int startHabitatID, int targetHabitatID, java.util.Map<String, String> units, java.util.Map<String, String> resources) {
+		System.out.println(units.size());
 		String unitDictionary = this.getAsDictionary(units);
+		System.out.println(unitDictionary);
 		String resourceDictionary = this.getAsDictionary(this.stripToSilver(resources));
 		HttpRequest request = new HttpRequest("lordsandknights.request.unit.send", this.world.getURL()+"/wa/TransitAction/startTransit");
 		request.set("callback", "").set("sourceHabitatID", startHabitatID).set("destinationHabitatID", targetHabitatID);
@@ -274,7 +278,7 @@ public class LordsAndKnightsCommunicator implements IGameCommunicator {
 	 */
 	public String getAsDictionary(java.util.Map<String, String> map) {
 		String dictionary = "{";
-		for (String key : map.keySet().toArray(new String[]{})) {
+		for (String key : map.keySet()) {
 			dictionary += key+"="+map.get(key)+";";
 		}
 		return dictionary+"}";

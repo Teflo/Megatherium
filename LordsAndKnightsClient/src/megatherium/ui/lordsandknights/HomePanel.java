@@ -4,6 +4,8 @@
  */
 package megatherium.ui.lordsandknights;
 
+import megatherium.application.Application;
+import megatherium.controller.LordsAndKnightsController;
 import megatherium.event.EventManager;
 import megatherium.ui.EventPanel;
 
@@ -31,6 +33,7 @@ public class HomePanel extends EventPanel {
 
         openAttackSheduleButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        activeButton = new javax.swing.JToggleButton();
 
         openAttackSheduleButton.setText("Automatische Angriffe");
         openAttackSheduleButton.addActionListener(new java.awt.event.ActionListener() {
@@ -46,6 +49,13 @@ public class HomePanel extends EventPanel {
             }
         });
 
+        activeButton.setText("Ausführung: Deaktiviert");
+        activeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -54,8 +64,9 @@ public class HomePanel extends EventPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(openAttackSheduleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(247, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(activeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -64,7 +75,9 @@ public class HomePanel extends EventPanel {
                 .addComponent(openAttackSheduleButton)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(activeButton)
+                .addContainerGap(181, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -76,7 +89,13 @@ public class HomePanel extends EventPanel {
         EventManager.getInstance().fireEvent("megatherium.ui.account.list.show");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void activeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activeButtonActionPerformed
+        ((LordsAndKnightsController)Application.getController()).setActiveAttaack(activeButton.isSelected());
+		activeButton.setText("Ausführung: " + ((activeButton.isSelected()) ? "Aktiviert" : "Deaktiviert"));
+    }//GEN-LAST:event_activeButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton activeButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton openAttackSheduleButton;
     // End of variables declaration//GEN-END:variables

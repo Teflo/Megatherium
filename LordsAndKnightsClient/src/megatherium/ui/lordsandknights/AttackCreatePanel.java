@@ -7,6 +7,7 @@ package megatherium.ui.lordsandknights;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,9 +20,11 @@ import megatherium.ui.AccountComboBoxModel;
 import megatherium.ui.EventPanel;
 import megatherium.ui.LabeledTextField;
 import megatherium.communicator.data.Account;
+import megatherium.communicator.data.lordsandknights.megatherium.Attack;
 import megatherium.communicator.data.lordsandknights.megatherium.Habitat;
 import megatherium.data.store.AccountStore;
 import megatherium.data.store.Stores;
+import megatherium.data.store.lordsandknights.AttackStore;
 import megatherium.data.store.lordsandknights.HabitatStore;
 import megatherium.event.EventManager;
 import megatherium.event.IEventListener;
@@ -33,8 +36,8 @@ import megatherium.util.ReportUtil;
  * @author marti_000
  */
 public class AttackCreatePanel extends EventPanel {
-	private Map<String, String> resources;
-	private Map<String, String> units;
+	private HashMap<String, String> resources;
+	private HashMap<String, String> units;
 
 	/**
 	 * Creates new form AttackCreatePanel
@@ -43,22 +46,23 @@ public class AttackCreatePanel extends EventPanel {
 		initComponents();
 		
 		// TODO is this correct?!
-//		EventManager.getInstance().addListener("lordsandknights.ui.attack.create.show", this, "load");
+		EventManager.getInstance().addListener("lordsandknights.ui.attack.create.show", this, "load");
 		EventManager.getInstance().addListener("lordsandknights.ui.unit.selection.save", this, "setUnits");
 		EventManager.getInstance().addListener("lordsandknights.ui.resource.selection.save", this, "setResources");
 	}
 	
-	public void setUnits(Map<String, String> units) {this.units = units;}
-	public void setResources(Map<String, String> resources) {this.resources = resources;}
+	public void setUnits(HashMap<String, String> units) {this.units = units;}
+	public void setResources(HashMap<String, String> resources) {this.resources = resources;}
 	
 	/**
 	 * Returns the timestamp.
 	 * 
 	 * @return the timestamp (seconds since 1.1.1970)
 	 */
-	public int getTime() {
+	public long getTime() {
+		if(this.time.getText().equals("")) return 0;
 		try {
-			int time = (int) (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").parse(this.time.getText()).getTime()/1000);
+			long time =  (new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").parse(this.time.getText()).getTime());
 			return time;
 		} catch (ParseException ex) {
 			ReportUtil.getInstance().add(ex);
@@ -134,6 +138,11 @@ public class AttackCreatePanel extends EventPanel {
                 timeActionPerformed(evt);
             }
         });
+        time.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                timeKeyTyped(evt);
+            }
+        });
 
         unitSelection.setText("Einheiten auswählen");
         unitSelection.setEnabled(false);
@@ -178,6 +187,11 @@ public class AttackCreatePanel extends EventPanel {
         jLabel4.setText("Ziel:");
 
         targetHabitatID.setText(null);
+        targetHabitatID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                targetHabitatIDKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -261,34 +275,72 @@ public class AttackCreatePanel extends EventPanel {
 		if (this.account.getSelectedItem() == null) return;
 		for (Habitat habitat : ((HabitatStore) Stores.getInstance().getStore("habitatStore")).getItems(((Account) this.account.getSelectedItem()).getID()))
 			((HabitatComboBoxModel) this.habitat.getModel()).addElement(habitat);
+		ableToSave();
     }//GEN-LAST:event_accountActionPerformed
 
     private void habitatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_habitatActionPerformed
         this.unitSelection.setEnabled(true);
 		this.resourceSelection.setEnabled(true);
+		ableToSave();
     }//GEN-LAST:event_habitatActionPerformed
 
     private void unitSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unitSelectionActionPerformed
         EventManager.getInstance().fireEvent("lordsandknights.ui.unit.selection.show", this.habitat.getSelectedItem());
+		ableToSave();
     }//GEN-LAST:event_unitSelectionActionPerformed
 
     private void resourceSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resourceSelectionActionPerformed
         EventManager.getInstance().fireEvent("lordsandknights.ui.resource.selection.show", this.habitat.getSelectedItem());
+		ableToSave();
     }//GEN-LAST:event_resourceSelectionActionPerformed
-
+	
+	/**
+	 * Determines if the user is able to save.
+	 * @return true if all input is correct, otherwise false.
+	 */
+	private boolean ableToSave() {
+		this.save.setEnabled(false);
+		if(this.account.getSelectedItem() == null) return false;
+		if( this.habitat.getSelectedItem() == null ) return false;
+		if( this.targetHabitatID.getText().equals("")) return false;
+		if( Integer.parseInt(this.targetHabitatID.getText()) == 0) return false;
+		if( this.getTime() < System.currentTimeMillis()) return false;
+		this.save.setEnabled(true);
+		return true;
+	}
+	
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        int accountID = ((Account) this.account.getSelectedItem()).getID();
-		int startHabitatID = ((Habitat) this.habitat.getSelectedItem()).getID();
-		int targetHabitatID = Integer.parseInt(this.targetHabitatID.getText());
-		int time = this.getTime();
-		
-		// create attack
-		EventManager.getInstance().fireEvent("lordsandknights.data.attack.create", accountID, startHabitatID, targetHabitatID, time, this.resources, this.units);
-    }//GEN-LAST:event_saveActionPerformed
-
-    private void timeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeActionPerformed
         
+		if(!ableToSave()) {
+			EventManager.getInstance().fireEvent("lordsandknights.ui.attack.shedule.show");
+			return;
+		}
+		
+		int accountID = ((Account)this.account.getSelectedItem()).getID();
+		int startHabitatID = ((Habitat)this.habitat.getSelectedItem()).getID();
+		int targetHabitatID = Integer.parseInt(this.targetHabitatID.getText());
+		long time = this.getTime();
+		
+		HashMap<String, String> resources = (this.resources == null ) ? new HashMap<String, String>() : this.resources;
+		HashMap<String, String> units = (this.units == null ) ? new HashMap<String, String>() : this.units;
+		System.out.println("Bla:" + units.size());
+		
+		EventManager.getInstance().fireEvent("lordsandknights.data.attack.create", accountID, startHabitatID, targetHabitatID, time, resources, units);
+		Stores.get("attackStore", AttackStore.class).load();
+		EventManager.getInstance().fireEvent("lordsandknights.ui.attack.shedule.show");
+    }//GEN-LAST:event_saveActionPerformed
+	
+    private void timeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeActionPerformed
+        ableToSave();
     }//GEN-LAST:event_timeActionPerformed
+
+    private void timeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_timeKeyTyped
+        ableToSave();
+    }//GEN-LAST:event_timeKeyTyped
+
+    private void targetHabitatIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_targetHabitatIDKeyTyped
+        ableToSave();
+    }//GEN-LAST:event_targetHabitatIDKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox account;
@@ -305,12 +357,18 @@ public class AttackCreatePanel extends EventPanel {
     private javax.swing.JButton unitSelection;
     // End of variables declaration//GEN-END:variables
 
-	private void load() {
+	public void load() {
 		// load accounts
 		((AccountComboBoxModel) this.account.getModel()).removeAllElements();
 		((AccountComboBoxModel) this.account.getModel()).addElement(null);
 		for (Account account : ((AccountStore) Stores.getInstance().getStore("accountStore")).getItems())
 			((AccountComboBoxModel) this.account.getModel()).addElement(account);
+		this.time.setText("");
+		this.targetHabitatID.setText("");
+		this.unitSelection.setEnabled(false);
+		this.resourceSelection.setEnabled(false);
+		((HabitatComboBoxModel) this.habitat.getModel()).removeAllElements();
+		ableToSave();
 	}
 	
 }

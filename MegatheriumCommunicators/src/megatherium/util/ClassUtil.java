@@ -25,6 +25,7 @@ public class ClassUtil {
 		if (objects != null) {
 			for (Object obj : objects) {
 				if (obj != null) typeList.add(obj.getClass());
+				else typeList.add(Object.class);
 			}
 		}
 		return typeList.toArray(new Class<?>[]{});
